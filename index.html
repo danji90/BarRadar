@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="core.js"></script>
+
+</head>
+
+<body >
+<div data-role="page" id="home">
+    <div data-role="header">
+        <h1>MusicRadar</h1>
+        <a id="refresh" href="#" data-icon="recycle" class="ui-btn-right">Refresh</a>
+    </div>
+    <div data-role="content">
+        <ul id="venues_list" data-role="listview"></ul>
+    </div>
+    <div data-role="content">
+    </div>
+</div>
+
+<div data-role="page" id="details">
+    <div data-role="header" data-add-back-btn="true">
+        <h1 id="venueName"></h1>
+        <a id="mapView" href="#" data-icon="location" class="ui-btn-right">Map view</a>
+    </div>
+    <div data-role="content">
+        <ul data-role="listview" data-inset="true" >
+            <li><span id="venueCity"></span></li>
+            <li><span id="venueState"></span></li>
+            <li><span id="venueCountry"></span></li>
+            <li><span id="venueDistance"></span></li>
+            <li><span id="venuePopularity"></span></li>
+        </ul>
+
+    </div>
+</div>
+
+<div data-role="page" id="mapPage">
+    <div data-role="header" data-add-back-btn="true" >
+        <h1>Map View</h1>
+    </div>
+    <div data-role="content" id="map" ></div>
+</div>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQVpoQl_Qs9sX8mElHOOvWKK5_n8HKDFw"></script>
+
+</body>
+
+</html>
