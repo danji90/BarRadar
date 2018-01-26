@@ -92,11 +92,12 @@ $(document).on('pagebeforeshow','#details', function (e) {
 $(document).on('click','#mapView', function (e) {
     e.preventDefault();
 
-    $( document ).on( "pageinit", "#mapPage", function() {
+    $( document ).on( "pagebeforeshow", "#mapPage", function() {
         var cvLat = currentVenue.location.lat;
         var cvLon = currentVenue.location.lng;
 
         var LatLng = new google.maps.LatLng(cvLat, cvLon);
+        
 
         console.log(LatLng)
 
