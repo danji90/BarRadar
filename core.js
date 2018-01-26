@@ -92,39 +92,61 @@ $(document).on('pagebeforeshow','#details', function (e) {
 $(document).on('click','#mapView', function (e) {
     e.preventDefault();
 
-    var cvLat = currentVenue.location.lat;
-    var cvLon = currentVenue.location.lng;
+    $( document ).on( "pageinit", "#mapPage", function() {
+        var cvLat = currentVenue.location.lat;
+        var cvLon = currentVenue.location.lng;
 
-    var defaultLatLng = new google.maps.LatLng(cvLat, cvLon);
+        var LatLng = new google.maps.LatLng(cvLat, cvLon);
 
-    console.log(defaultLatLng)
+        console.log(LatLng)
 
-    drawMap(new google.maps.LatLng(cvLat, cvLon));
+        drawMap(LatLng);
 
-    function drawMap(defaultLatLng) {
-        var myOptions = {
-            zoom: 14,
-            center: {lat: cvLat, lng: cvLon},
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        console.log(myOptions)
-        var map = new google.maps.Map(document.getElementById("map"), myOptions);
-        // Add an overlay to the map of current lat/lng
-        var marker = new google.maps.Marker({
-            position: defaultLatLng,
-            map: map,
-            title: currentVenue.name
-        });
+        function drawMap(latlng) {
+            var myOptions = {
+                zoom: 14,
+                center: LatLng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
 
-        google.maps.event.addListenerOnce(map, 'idle', function(){
-            // do something only the first time the map is loaded
-            google.maps.event.trigger(map, 'resize');
-        });
+            var map = new google.maps.Map(document.getElementById("map"), myOptions);
+
+            google.maps.event.addDomListener(window, "resize", function() {
+                var center = map.getCenter();
+                google.maps.event.trigger(map, "resize");
+                map.setCenter(center);
+            });
+
+            google.maps.event.addListenerOnce(map, 'idle', function(){
+                // do something only the first time the map is loaded
+                var center = map.getCenter();
+                google.maps.event.trigger(map, 'resize');
+                map.setCenter(center);
+            });
+
+            var marker = new google.maps.Marker({
+                position: LatLng,
+                map: map,
+                title: "Greetings!"
+            });
+
+            var marker180NM = new google.maps.Marker({
+                position: new google.maps.LatLng(cvLat, cvLon),
+                map: map,
+                title: "AAU"
+            });
+
+
+
+        }
+    })
+
+    $.mobile.changePage("#mapPage");
+
+
+
 
         //var venueCoordinates = cvLat + "," + cvLon;
         //console.log(venueCoordinates)
-
-        $.mobile.changePage("#mapPage");
-    }
-})
+});
 
