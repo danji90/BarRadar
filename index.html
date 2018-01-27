@@ -13,10 +13,13 @@
 </head>
 
 <body >
-<div data-role="page" id="home">
-    <div data-role="header">
+<div data-role="page" id="home" data-theme="b"  >
+    <div data-role="header" >
         <h1>MusicRadar</h1>
         <a id="refresh" href="#" data-icon="recycle" class="ui-btn-right">Refresh</a>
+    </div>
+    <div data-role="content">
+        <h2>Welcome to MusicRadar!</h2>
     </div>
     <div data-role="content">
         <ul id="venues_list" data-role="listview"></ul>
@@ -25,7 +28,7 @@
     </div>
 </div>
 
-<div data-role="page" id="details">
+<div data-role="page" id="details" data-theme="b" >
     <div data-role="header" data-add-back-btn="true">
         <h1 id="venueName"></h1>
         <a id="mapView" href="#" data-icon="location" class="ui-btn-right">Map view</a>
@@ -42,7 +45,7 @@
     </div>
 </div>
 
-<div data-role="page" id="mapPage">
+<div data-role="page" id="mapPage" data-theme="b" >
     <div data-role="header" data-add-back-btn="true" >
         <h1>Map View</h1>
     </div>

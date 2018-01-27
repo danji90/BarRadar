@@ -98,9 +98,6 @@ $(document).on('click','#mapView', function (e) {
 
         var LatLng = new google.maps.LatLng(cvLat, cvLon);
 
-
-        console.log(LatLng)
-
         drawMap(LatLng);
 
         function drawMap(latlng) {
@@ -112,12 +109,6 @@ $(document).on('click','#mapView', function (e) {
 
             var map = new google.maps.Map(document.getElementById("map"), myOptions);
 
-            google.maps.event.addDomListener(window, "resize", function() {
-                var center = map.getCenter();
-                google.maps.event.trigger(map, "resize");
-                map.setCenter(center);
-            });
-
             google.maps.event.addListenerOnce(map, 'idle', function(){
                 // do something only the first time the map is loaded
                 var center = map.getCenter();
@@ -125,17 +116,40 @@ $(document).on('click','#mapView', function (e) {
                 map.setCenter(center);
             });
 
-            var marker = new google.maps.Marker({
-                position: LatLng,
-                map: map,
-                title: "Greetings!"
-            });
+            //function to create marker
+            function createMarker(coord, map){
+                //Create marker
+                var marker = new google.maps.Marker({
+                    position: coord,
+                    map: map,
+                    title: currentVenue.name
+                });
 
-            var marker180NM = new google.maps.Marker({
-                position: new google.maps.LatLng(cvLat, cvLon),
-                map: map,
-                title: "AAU"
-            });
+                //var contentString =
+
+                // Create a popup/info window for click on marker
+                var infowindow = new google.maps.InfoWindow({
+                    content: currentVenue.name
+                });
+
+                marker.addListener('click', function(){
+                    infowindow.open(map, marker);
+                })
+                return marker
+            }
+
+            createMarker(LatLng, map);
+
+            console.log(createMarker(LatLng, map))
+
+
+
+            // var infoWindow = new google.maps.InfoWindow({
+            //     content: "Wank"
+            // });
+
+
+
 
 
 
