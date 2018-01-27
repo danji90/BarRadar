@@ -97,7 +97,7 @@ $(document).on('click','#mapView', function (e) {
         var cvLon = currentVenue.location.lng;
 
         var LatLng = new google.maps.LatLng(cvLat, cvLon);
-        
+
 
         console.log(LatLng)
 
@@ -105,7 +105,7 @@ $(document).on('click','#mapView', function (e) {
 
         function drawMap(latlng) {
             var myOptions = {
-                zoom: 14,
+                zoom: 16,
                 center: LatLng,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
