@@ -140,28 +140,10 @@ $(document).on('click','#mapView', function (e) {
 
             createMarker(LatLng, map);
 
-            console.log(createMarker(LatLng, map))
-
-
-
-            // var infoWindow = new google.maps.InfoWindow({
-            //     content: "Wank"
-            // });
-
-
-
-
-
-
         }
     })
 
     $.mobile.changePage("#mapPage");
 
-
-
-
-        //var venueCoordinates = cvLat + "," + cvLon;
-        //console.log(venueCoordinates)
 });
 
