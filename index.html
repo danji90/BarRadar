@@ -16,10 +16,18 @@
 <div data-role="page" id="home" data-theme="b"  >
     <div data-role="header" >
         <h1>MusicRadar</h1>
-        <a id="refresh" href="#" data-icon="recycle" class="ui-btn-right">Refresh</a>
     </div>
     <div id="instructions" data-role="content" >
         <h2>Welcome to MusicRadar! Hit Refresh and select your music venue!</h2>
+        <!-- <input data-role="flipswitch" name="flip-checkbox-3" id="flip-checkbox-3" data-on-text="By popularity" data-off-text="By distance" data-wrapper-class="custom-size-flipswitch" type="checkbox"> -->
+        <div class="holder">
+            <select name="flip-1" id="flip-1" data-role="slider">
+                <option value="off">Checkins</option>
+                <option value="on">Distance</option>
+            </select>
+        </div>
+        <br></br>
+        <a id="refresh" href="#" data-icon="recycle" class="ui-btn ui-btn-inline">Refresh</a>
     </div>
     <div data-role="content" id="list">
         <ul id="venues_list" data-role="listview"></ul>
@@ -30,8 +38,10 @@
 
 <div data-role="page" id="details" data-theme="b" >
     <div data-role="header" data-add-back-btn="true">
-        <h1 id="venueName"></h1>
         <a id="mapView" href="#" data-icon="location" class="ui-btn-right">Map view</a>
+    </div>
+    <div id="venueTitle" data-role="content">
+        <h1 id="venueName"></h1>
     </div>
     <div data-role="content">
         <ul data-role="listview" data-inset="true" >

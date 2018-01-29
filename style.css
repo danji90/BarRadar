@@ -4,6 +4,10 @@
     height: 100%;
 }
 
-#instructions{
+#instructions, #venueTitle{
     text-align:center;
+}
+
+.holder .ui-slider-switch {
+    width:12em;
 }

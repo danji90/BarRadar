@@ -48,6 +48,7 @@ $(document).on("click", "#refresh", function(e) {
                         return b.stats.checkinsCount - a.stats.checkinsCount;
                     });
                     console.log(venues);
+
                     //Remove previous venues
                     $('#venues_list li').remove();
                     //Add new venues to the list
