@@ -142,8 +142,6 @@ $(document).on('click','#mapView', function (e) {
                     title: currentVenue.name
                 });
 
-                //var contentString =
-
                 // Create a popup/info window for click on marker
                 var infowindow = new google.maps.InfoWindow({
                     content: currentVenue.name

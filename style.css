@@ -4,8 +4,6 @@
     height: 100%;
 }
 
-.ui-header .ui-title {margin: 0 20%}
-
 #instructions, #venueTitle {
     text-align:center;
 }
@@ -18,3 +16,5 @@
     width: 20px;
     height: 20px;
 }
+
+.ui-header .ui-title {margin: 0 20%}
