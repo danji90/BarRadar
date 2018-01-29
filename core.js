@@ -12,9 +12,9 @@ var currentVenue
 
 // Refresh Button
 
-// $(document).on("click", "#refresh", function(e) {
-//     //Prevent default behaviour
-//     e.preventDefault();
+$(document).on("click", "#refresh", function(e) {
+    //Prevent default behaviour
+    e.preventDefault();
 
     //1. Get Current Location
     var geoLocURL = "https://www.googleapis.com/geolocation/v1/geolocate?key="+Google_key;
@@ -22,7 +22,7 @@ var currentVenue
     $.post(geoLocURL,
         function (response) {
 
-            // Convert date for URL
+            // Convert date to yyyyMMdd for URL
             var d = new Date();
             function convertDate(date) {
                 var yyyy = date.getFullYear().toString();
@@ -30,14 +30,13 @@ var currentVenue
                 var dd  = date.getDate().toString();
                 var mmChars = mm.split('');
                 var ddChars = dd.split('');
-                var ddChars = dd.split('');
                 return yyyy + (mmChars[1]?mm:"0"+mmChars[0]) + (ddChars[1]?dd:"0"+ddChars[0]);
-            };
+            }
 
             var date = convertDate(d);
 
-            lat = response.location.lat;
-            lng = response.location.lng;
+            var lat = response.location.lat;
+            var lng = response.location.lng;
 
             call_url = "https://api.foursquare.com/v2/venues/search?ll="+lat+","+lng+"&categoryId=4bf58dd8d48988d1e5931735&radius=1000&client_id="+client_id+"&client_secret="+client_secret+"&v=" + date;
 
@@ -74,30 +73,20 @@ var currentVenue
                         });
                     }
 
-                    console.log(venues);
-
                     //Refresh list content
                     $('#venues_list').listview('refresh');
                 });
         })
-//});
+});
 
-$(document).ready(function(){
-    console.log(localStorage.getItem("storedVenue"))
-    currentVenue = venues.id(storedVenue);
-
-
-})
 $(document).on('pagebeforeshow','#home', function () {
     $(document).on('click','#to_details',function (e) {
         e.preventDefault();
         e.stopImmediatePropagation();
         //Store the venue ID
         currentVenue = venues[e.target.children[0].id];
-        localStorage.setItem("storedVenue", currentVenue.id)
         //Change to Details Page
         $.mobile.changePage("#details")
-
     })
 });
 
@@ -105,68 +94,90 @@ $(document).on('pagebeforeshow','#home', function () {
 $(document).on('pagebeforeshow','#details', function (e) {
     e.preventDefault();
 
-    //if currentVenue == undefined
-    console.log(currentVenue)
+    //console.log(currentVenue)
 
-    $('#venueName').text(currentVenue.name);
-    $('#venueCity').text('City: '+currentVenue.location.city);
-    $('#venueState').text('State: '+currentVenue.location.state);
-    $('#venueCountry').text('Country: '+currentVenue.location.country);
-    $('#venueDistance').text('Distance from user: '+currentVenue.location.distance);
-    $('#venuePopularity').text('Popularity: '+currentVenue.stats.checkinsCount +" check-in(s), " + currentVenue.stats.usersCount + " user(s), " + currentVenue.stats.tips + " tip(s)");
+    //$(window).on('refresh', (function(){
+    if (currentVenue == undefined){
+        window.location.href = "#home";
+    } else {
+        $('#venueName').text(currentVenue.name);
+        $('#venueCity').text('City: '+currentVenue.location.city);
+        $('#venueState').text('State: '+currentVenue.location.state);
+        $('#venueCountry').text('Country: '+currentVenue.location.country);
+        $('#venueDistance').text('Distance from user: '+currentVenue.location.distance);
+        $('#venuePopularity').text('Popularity: '+currentVenue.stats.checkinsCount +" check-in(s), " + currentVenue.stats.usersCount + " user(s), " + currentVenue.stats.tips + " tip(s)");
+    }
 
 
-});
+    //console.log(currentVenue)
+
+
+    // $('#venueName').text(currentVenue.name);
+    // $('#venueCity').text('City: '+currentVenue.location.city);
+    // $('#venueState').text('State: '+currentVenue.location.state);
+    // $('#venueCountry').text('Country: '+currentVenue.location.country);
+    // $('#venueDistance').text('Distance from user: '+currentVenue.location.distance);
+    // $('#venuePopularity').text('Popularity: '+currentVenue.stats.checkinsCount +" check-in(s), " + currentVenue.stats.usersCount + " user(s), " + currentVenue.stats.tips + " tip(s)");
+
+
+})
 
 $(document).on('click','#mapView', function (e) {
     e.preventDefault();
 
     $( document ).on( "pagebeforeshow", "#mapPage", function() {
-        var cvLat = currentVenue.location.lat;
-        var cvLon = currentVenue.location.lng;
 
-        var LatLng = new google.maps.LatLng(cvLat, cvLon);
+        console.log(currentVenue)
 
-        drawMap(LatLng);
+        if (currentVenue == undefined){
+            console.log("wank")
+            window.location.href = "#home";
+        } else {
+            var cvLat = currentVenue.location.lat;
+            var cvLon = currentVenue.location.lng;
 
-        function drawMap(latlng) {
-            var myOptions = {
-                zoom: 16,
-                center: LatLng,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            };
+            var LatLng = new google.maps.LatLng(cvLat, cvLon);
 
-            var map = new google.maps.Map(document.getElementById("map"), myOptions);
+            drawMap(LatLng);
 
-            google.maps.event.addListenerOnce(map, 'idle', function(){
-                // do something only the first time the map is loaded
-                var center = map.getCenter();
-                google.maps.event.trigger(map, 'resize');
-                map.setCenter(center);
-            });
+            function drawMap(latlng) {
+                var myOptions = {
+                    zoom: 16,
+                    center: LatLng,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
 
-            //function to create marker
-            function createMarker(coord, map){
-                //Create marker
-                var marker = new google.maps.Marker({
-                    position: coord,
-                    map: map,
-                    title: currentVenue.name
+                var map = new google.maps.Map(document.getElementById("map"), myOptions);
+
+                google.maps.event.addListenerOnce(map, 'idle', function () {
+                    // do something only the first time the map is loaded
+                    var center = map.getCenter();
+                    google.maps.event.trigger(map, 'resize');
+                    map.setCenter(center);
                 });
 
-                // Create a popup/info window for click on marker
-                var infowindow = new google.maps.InfoWindow({
-                    content: currentVenue.name
-                });
+                //function to create marker
+                function createMarker(coord, map) {
+                    //Create marker
+                    var marker = new google.maps.Marker({
+                        position: coord,
+                        map: map,
+                        title: currentVenue.name
+                    });
 
-                marker.addListener('click', function(){
-                    infowindow.open(map, marker);
-                })
-                return marker
+                    // Create a popup/info window for click on marker
+                    var infowindow = new google.maps.InfoWindow({
+                        content: currentVenue.name
+                    });
+
+                    marker.addListener('click', function () {
+                        infowindow.open(map, marker);
+                    })
+                    return marker
+                }
+
+                createMarker(LatLng, map);
             }
-
-            createMarker(LatLng, map);
-
         }
     })
 
