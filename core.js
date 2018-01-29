@@ -94,9 +94,6 @@ $(document).on('pagebeforeshow','#home', function () {
 $(document).on('pagebeforeshow','#details', function (e) {
     e.preventDefault();
 
-    //console.log(currentVenue)
-
-    //$(window).on('refresh', (function(){
     if (currentVenue == undefined){
         window.location.href = "#home";
     } else {
@@ -107,81 +104,69 @@ $(document).on('pagebeforeshow','#details', function (e) {
         $('#venueDistance').text('Distance from user: '+currentVenue.location.distance);
         $('#venuePopularity').text('Popularity: '+currentVenue.stats.checkinsCount +" check-in(s), " + currentVenue.stats.usersCount + " user(s), " + currentVenue.stats.tips + " tip(s)");
     }
-
-
-    //console.log(currentVenue)
-
-
-    // $('#venueName').text(currentVenue.name);
-    // $('#venueCity').text('City: '+currentVenue.location.city);
-    // $('#venueState').text('State: '+currentVenue.location.state);
-    // $('#venueCountry').text('Country: '+currentVenue.location.country);
-    // $('#venueDistance').text('Distance from user: '+currentVenue.location.distance);
-    // $('#venuePopularity').text('Popularity: '+currentVenue.stats.checkinsCount +" check-in(s), " + currentVenue.stats.usersCount + " user(s), " + currentVenue.stats.tips + " tip(s)");
-
-
 })
+
 
 $(document).on('click','#mapView', function (e) {
     e.preventDefault();
+    $.mobile.changePage("#mapPage");
+});
 
-    $( document ).on( "pagebeforeshow", "#mapPage", function() {
 
-        console.log(currentVenue)
+$( document ).on( "pagebeforeshow", "#mapPage", function(e) {
+    e.preventDefault();
 
-        if (currentVenue == undefined){
-            console.log("wank")
-            window.location.href = "#home";
-        } else {
-            var cvLat = currentVenue.location.lat;
-            var cvLon = currentVenue.location.lng;
+    console.log(currentVenue)
 
-            var LatLng = new google.maps.LatLng(cvLat, cvLon);
+    if (currentVenue == undefined){
+        console.log("wank")
+        window.location.href = "#home";
+    } else {
+        var cvLat = currentVenue.location.lat;
+        var cvLon = currentVenue.location.lng;
 
-            drawMap(LatLng);
+        var LatLng = new google.maps.LatLng(cvLat, cvLon);
 
-            function drawMap(latlng) {
-                var myOptions = {
-                    zoom: 16,
-                    center: LatLng,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                };
+        drawMap(LatLng);
 
-                var map = new google.maps.Map(document.getElementById("map"), myOptions);
+        function drawMap(latlng) {
+            var myOptions = {
+                zoom: 16,
+                center: LatLng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
 
-                google.maps.event.addListenerOnce(map, 'idle', function () {
-                    // do something only the first time the map is loaded
-                    var center = map.getCenter();
-                    google.maps.event.trigger(map, 'resize');
-                    map.setCenter(center);
+            var map = new google.maps.Map(document.getElementById("map"), myOptions);
+
+            google.maps.event.addListenerOnce(map, 'idle', function () {
+                // do something only the first time the map is loaded
+                var center = map.getCenter();
+                google.maps.event.trigger(map, 'resize');
+                map.setCenter(center);
+            });
+
+            //function to create marker
+            function createMarker(coord, map) {
+                //Create marker
+                var marker = new google.maps.Marker({
+                    position: coord,
+                    map: map,
+                    title: currentVenue.name
                 });
 
-                //function to create marker
-                function createMarker(coord, map) {
-                    //Create marker
-                    var marker = new google.maps.Marker({
-                        position: coord,
-                        map: map,
-                        title: currentVenue.name
-                    });
+                // Create a popup/info window for click on marker
+                var infowindow = new google.maps.InfoWindow({
+                    content: currentVenue.name
+                });
 
-                    // Create a popup/info window for click on marker
-                    var infowindow = new google.maps.InfoWindow({
-                        content: currentVenue.name
-                    });
-
-                    marker.addListener('click', function () {
-                        infowindow.open(map, marker);
-                    })
-                    return marker
-                }
-
-                createMarker(LatLng, map);
+                marker.addListener('click', function () {
+                    infowindow.open(map, marker);
+                })
+                return marker
             }
+
+            createMarker(LatLng, map);
         }
-    })
-
-    $.mobile.changePage("#mapPage");
-
-});
+    }
+})
 
