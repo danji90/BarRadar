@@ -94,6 +94,8 @@ $(document).on('pagebeforeshow','#home', function () {
 $(document).on('pagebeforeshow','#details', function (e) {
     e.preventDefault();
 
+    // When refreshing the page it relocates to #home page to prevent page from getting stuck when currentVenue = undefined
+
     if (currentVenue == undefined){
         window.location.href = "#home";
     } else {
@@ -116,7 +118,7 @@ $(document).on('click','#mapView', function (e) {
 $( document ).on( "pagebeforeshow", "#mapPage", function(e) {
     e.preventDefault();
 
-    console.log(currentVenue)
+    // When refreshing the page it relocates to #home page to prevent page from getting stuck when currentVenue = undefined
 
     if (currentVenue == undefined){
         console.log("wank")
