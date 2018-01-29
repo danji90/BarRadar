@@ -8,11 +8,13 @@ client_secret = "0JCC2M4SHSIXTYPLDSCS1A2EO2QYDFZ24RMMAFCHV2WAQRA5";
 
 var venues;
 
+var currentVenue
+
 // Refresh Button
 
-$(document).on("click", "#refresh", function(e) {
-    //Prevent default behaviour
-    e.preventDefault();
+// $(document).on("click", "#refresh", function(e) {
+//     //Prevent default behaviour
+//     e.preventDefault();
 
     //1. Get Current Location
     var geoLocURL = "https://www.googleapis.com/geolocation/v1/geolocate?key="+Google_key;
@@ -78,24 +80,33 @@ $(document).on("click", "#refresh", function(e) {
                     $('#venues_list').listview('refresh');
                 });
         })
-});
+//});
+
+$(document).ready(function(){
+    console.log(localStorage.getItem("storedVenue"))
+    currentVenue = venues.id(storedVenue);
 
 
+})
 $(document).on('pagebeforeshow','#home', function () {
     $(document).on('click','#to_details',function (e) {
         e.preventDefault();
         e.stopImmediatePropagation();
         //Store the venue ID
         currentVenue = venues[e.target.children[0].id];
+        localStorage.setItem("storedVenue", currentVenue.id)
         //Change to Details Page
-        $.mobile.changePage("#details");
+        $.mobile.changePage("#details")
+
     })
 });
 
 //Update Details Page
 $(document).on('pagebeforeshow','#details', function (e) {
     e.preventDefault();
-    //console.log(currentVenue);
+
+    //if currentVenue == undefined
+    console.log(currentVenue)
 
     $('#venueName').text(currentVenue.name);
     $('#venueCity').text('City: '+currentVenue.location.city);
@@ -103,6 +114,7 @@ $(document).on('pagebeforeshow','#details', function (e) {
     $('#venueCountry').text('Country: '+currentVenue.location.country);
     $('#venueDistance').text('Distance from user: '+currentVenue.location.distance);
     $('#venuePopularity').text('Popularity: '+currentVenue.stats.checkinsCount +" check-in(s), " + currentVenue.stats.usersCount + " user(s), " + currentVenue.stats.tips + " tip(s)");
+
 
 });
 
