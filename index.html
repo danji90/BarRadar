@@ -21,12 +21,11 @@
         <h2>Welcome to MusicRadar! Hit Refresh and select your music venue!</h2>
         <!-- <input data-role="flipswitch" name="flip-checkbox-3" id="flip-checkbox-3" data-on-text="By popularity" data-off-text="By distance" data-wrapper-class="custom-size-flipswitch" type="checkbox"> -->
         <div class="holder">
-            <select name="flip-1" id="flip-1" data-role="slider">
-                <option value="off">Checkins</option>
-                <option value="on">Distance</option>
+            <select name="flip" id="flip" data-role="slider" class="pop">
+                <option value="off">by distance</option>
+                <option value="on">by checkins</option>
             </select>
         </div>
-        <br></br>
         <a id="refresh" href="#" data-icon="recycle" class="ui-btn ui-btn-inline">Refresh</a>
     </div>
     <div data-role="content" id="list">

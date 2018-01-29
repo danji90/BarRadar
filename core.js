@@ -8,6 +8,10 @@ client_secret = "0JCC2M4SHSIXTYPLDSCS1A2EO2QYDFZ24RMMAFCHV2WAQRA5";
 
 var venues;
 
+$(document).on('change', '#flip', function(e) {
+    console.log($("#flip").val())
+})
+
 // Refresh Button
 
 $(document).on("click", "#refresh", function(e) {
@@ -44,9 +48,17 @@ $(document).on("click", "#refresh", function(e) {
                     // Process Response from FourSquare API Call
                     venues = data.response.venues;
                     // Sort list items by checkInsCount
-                    venues.sort(function(a, b) {
-                        return b.stats.checkinsCount - a.stats.checkinsCount;
-                    });
+
+                    if ($("#flip").val() == "off"){
+                        venues.sort(function(a, b) {
+                            return b.stats.checkinsCount - a.stats.checkinsCount;
+                        });
+                    }else{
+                        venues.sort(function(a, b) {
+                            return b.location.distance - a.location.distance;
+                        });
+                    }
+
                     console.log(venues);
 
                     //Remove previous venues
