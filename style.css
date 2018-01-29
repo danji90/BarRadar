@@ -4,10 +4,17 @@
     height: 100%;
 }
 
-#instructions, #venueTitle{
+.ui-header .ui-title {margin: 0 20%}
+
+#instructions, #venueTitle {
     text-align:center;
 }
 
 .holder .ui-slider-switch {
     width:12em;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
 }

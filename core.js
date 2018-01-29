@@ -8,10 +8,6 @@ client_secret = "0JCC2M4SHSIXTYPLDSCS1A2EO2QYDFZ24RMMAFCHV2WAQRA5";
 
 var venues;
 
-$(document).on('change', '#flip', function(e) {
-    console.log($("#flip").val())
-})
-
 // Refresh Button
 
 $(document).on("click", "#refresh", function(e) {
@@ -47,29 +43,37 @@ $(document).on("click", "#refresh", function(e) {
                 function (data) {
                     // Process Response from FourSquare API Call
                     venues = data.response.venues;
-                    // Sort list items by checkInsCount
 
-                    if ($("#flip").val() == "off"){
+                    //Remove previous venues
+                    $('#venues_list li').remove();
+
+
+                    // Sort list items by checkInsCount  or distance + add new venues to the list
+
+                    if ($("#flip").val() == "checkins"){
                         venues.sort(function(a, b) {
                             return b.stats.checkinsCount - a.stats.checkinsCount;
                         });
+                        $.each(venues, function(index,venue) {
+                            $('#venues_list').append(
+                                '<li><a id="to_details" href="#">'+venue.name+
+                                '<span id="'+index+'" class="ui-li-count">'+venue.stats.checkinsCount+'</span>'+
+                                '</a></li>');
+                        });
                     }else{
                         venues.sort(function(a, b) {
-                            return b.location.distance - a.location.distance;
+                            return a.location.distance - b.location.distance;
+                        });
+                        $.each(venues, function(index,venue) {
+                            $('#venues_list').append(
+                                '<li><a id="to_details" href="#">'+venue.name+
+                                '<span id="'+index+'" class="ui-li-count">'+venue.location.distance+' m</span>'+
+                                '</a></li>');
                         });
                     }
 
                     console.log(venues);
 
-                    //Remove previous venues
-                    $('#venues_list li').remove();
-                    //Add new venues to the list
-                    $.each(venues, function(index,venue) {
-                        $('#venues_list').append(
-                            '<li><a id="to_details" href="#">'+venue.name+
-                            '<span id="'+index+'" class="ui-li-count">'+venue.stats.checkinsCount+'</span>'+
-                            '</a></li>');
-                    });
                     //Refresh list content
                     $('#venues_list').listview('refresh');
                 });

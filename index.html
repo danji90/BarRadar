@@ -14,16 +14,21 @@
 
 <body >
 <div data-role="page" id="home" data-theme="b"  >
-    <div data-role="header" >
-        <h1>MusicRadar</h1>
+    <div data-role="header" id="head" >
+        <h3>
+            <div><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Circle-icons-music.svg/2000px-Circle-icons-music.svg.png" class="icon">
+             &nbsp MusicRadar &nbsp
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Circle-icons-music.svg/2000px-Circle-icons-music.svg.png" class="icon">
+            </div>
+        </h3>
     </div>
     <div id="instructions" data-role="content" >
         <h2>Welcome to MusicRadar! Hit Refresh and select your music venue!</h2>
         <!-- <input data-role="flipswitch" name="flip-checkbox-3" id="flip-checkbox-3" data-on-text="By popularity" data-off-text="By distance" data-wrapper-class="custom-size-flipswitch" type="checkbox"> -->
         <div class="holder">
             <select name="flip" id="flip" data-role="slider" class="pop">
-                <option value="off">by distance</option>
-                <option value="on">by checkins</option>
+                <option value="distance">Order by distance</option>
+                <option value="checkins">Order by checkins</option>
             </select>
         </div>
         <a id="refresh" href="#" data-icon="recycle" class="ui-btn ui-btn-inline">Refresh</a>
@@ -39,6 +44,7 @@
     <div data-role="header" data-add-back-btn="true">
         <a id="mapView" href="#" data-icon="location" class="ui-btn-right">Map view</a>
     </div>
+    </br>
     <div id="venueTitle" data-role="content">
         <h1 id="venueName"></h1>
     </div>
@@ -50,7 +56,6 @@
             <li><span id="venueDistance"></span></li>
             <li><span id="venuePopularity"></span></li>
         </ul>
-
     </div>
 </div>
 
