@@ -97,7 +97,7 @@ $(document).on('pagebeforeshow','#details', function (e) {
     // When refreshing the page it relocates to #home page to prevent page from getting stuck when currentVenue = undefined
 
     if (currentVenue == undefined){
-        window.location.href = "#home";
+        window.location.href = "index.html";
     } else {
         $('#venueName').text(currentVenue.name);
         $('#venueCity').text('City: '+currentVenue.location.city);
@@ -121,8 +121,7 @@ $( document ).on( "pagebeforeshow", "#mapPage", function(e) {
     // When refreshing the page it relocates to #home page to prevent page from getting stuck when currentVenue = undefined
 
     if (currentVenue == undefined){
-        console.log("wank")
-        window.location.href = "#home";
+        window.location.href = "index.html";
     } else {
         var cvLat = currentVenue.location.lat;
         var cvLon = currentVenue.location.lng;
