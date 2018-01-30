@@ -10,6 +10,8 @@ var venues;
 
 var currentVenue
 
+var currentLocation
+
 // Refresh Button
 
 $(document).on("click", "#refresh", function(e) {
@@ -17,11 +19,25 @@ $(document).on("click", "#refresh", function(e) {
     e.preventDefault();
 
     //1. Get Current Location
-    var geoLocURL = "https://www.googleapis.com/geolocation/v1/geolocate?key="+Google_key;
+    //var geoLocURL = "https://www.googleapis.com/geolocation/v1/geolocate?key="+Google_key;
 
-    $.post(geoLocURL,
+    function getPosition() {
+        navigator.geolocation.getCurrentPosition(displayPosition);
+    }
+    
+    function displayPosition(position) {
+        lat = position.coords.latitude;
+        lng = position.coords.longitude;
+        var latlng = lat + "," + lng;
+        return latlng
+    }
+    currentLocation = displayPosition()
+    console.log(currentLocation)
+
+
+    $.post(getPosition(currentLocation),
         function (response) {
-
+            console.log(lat+","+lng)
             // Convert date to yyyyMMdd for URL
             var d = new Date();
             function convertDate(date) {
