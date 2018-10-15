@@ -3,15 +3,9 @@
 This mobile app is designed to geolocate the user using the Google maps API
 and search for venues playing music (like, bars, music schools, concert halls etc) in a predefined search 
 radius radius. It uses the foursquare API, the category (music) and the radius are specified in the API's URL.
-One of the main challenges was finding a useful API and understanding how to use it. Another was to use 
-the Google maps API to embed the map in the "map view page", the main problem being the correct definition 
-of the loading sequence correctly so that it wouldn't conflict with the "back" button. Also adding and centering 
-the markers proved to be quite a challenge. 
-One more tricky problem to solve was the "order by" function with the flipswitch. This literally took me all night
-to figure out, eventually understanding the simplicity of the issue and implementing it effectively.
 
 You can find the app on the free hosting service: 
 
-http://platypus1990.co.nf/
+http://platypus1990.co.nf/ (OUTDATED!)
 
 Have fun using MusicRadar!
