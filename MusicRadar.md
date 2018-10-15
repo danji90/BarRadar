@@ -1,4 +1,4 @@
-MusicRadar
+# MusicRadar
 
 This mobile app is designed to geolocate the user using the Google maps API
 and search for venues playing music (like, bars, music schools, concert halls etc) in a predefined search 
