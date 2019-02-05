@@ -3,44 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.4.0/leaflet.css" />
     <link rel="stylesheet" type="text/css" href="./style.css" />
-    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQVpoQl_Qs9sX8mElHOOvWKK5_n8HKDFw"></script>
+    <script src="https://code.jquery.com/jquery-1.8.2.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.4.0/leaflet.js"></script>
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQVpoQl_Qs9sX8mElHOOvWKK5_n8HKDFw"></script> -->
     <script src="core.js"></script>
 
 </head>
 
 <body >
 <div data-role="page" id="home" data-theme="b"  >
-    <div data-role="header" id="head" >
-        <h3>
-            <div><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Circle-icons-music.svg/2000px-Circle-icons-music.svg.png" class="icon">
-             &nbsp MusicRadar &nbsp
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Circle-icons-music.svg/2000px-Circle-icons-music.svg.png" class="icon">
-            </div>
-        </h3>
+    <div class="header" data-role="header" id="head" data-position="fixed">
+        <h1>
+          NightScanner
+        </h1>
     </div>
     <div id="instructions" data-role="content" >
-        <h2>Welcome to MusicRadar! Hit Refresh and select your music venue!</h2>
-        <div class="holder">
+        <h2>Welcome to NightScanner! Hit Refresh and select your favourite nightlife!</h2>
+        <!-- <div class="holder">
             <select name="flip" id="flip" data-role="slider" class="pop">
                 <option value="distance">Order by distance</option>
                 <option value="checkins">Order by checkins</option>
             </select>
-        </div>
-        <a id="refresh" href="#" data-icon="recycle" class="ui-btn ui-btn-inline ui-corner-all">Refresh</a>
+        </div> -->
+        <a id="refresh" href="#" data-role="button" data-icon="refresh" data-inline="true">Refresh</a>
     </div>
     <div data-role="content">
         <ul id="venues_list" data-role="listview"></ul>
     </div>
+    <div class="footer" data-role="footer" data-position="fixed">
+      <p>Created by Daniel Marsh-Hunn</p>
+    </div>
 </div>
 
 <div data-role="page" id="details" data-theme="b" >
-    <div data-role="header" data-add-back-btn="true">
-        <a id="mapView" href="#" data-icon="location" class="ui-btn-right">Map view</a>
+    <div class="header" data-role="header" id="head" data-position="fixed" data-add-back-btn="true">
+      <a data-role="button" data-rel="back">Back</a>
+      <a href="mapPage" data-icon="location" data-role="button" id="mapView">Map view</a>
+      <h1>NightScanner</h1>
     </div>
+    <!-- <div data-role="header" data-add-back-btn="true">
+        <a id="mapView" href="#" data-icon="location" class="ui-btn-right">Map view</a>
+    </div> -->
     </br>
     <div id="venueTitle" data-role="content">
         <h1 id="venueName"></h1>
@@ -51,16 +58,27 @@
             <li><span id="venueState"></span></li>
             <li><span id="venueCountry"></span></li>
             <li><span id="venueDistance"></span></li>
-            <li><span id="venuePopularity"></span></li>
+            <!-- <li><span id="venuePopularity"></span></li> -->
         </ul>
+    </div>
+    <div class="footer" data-role="footer" data-position="fixed">
+      <p>Created by Daniel Marsh-Hunn</p>
     </div>
 </div>
 
 <div data-role="page" id="mapPage" data-theme="b" >
-    <div data-role="header" data-add-back-btn="true" >
-        <h1>Map View</h1>
-    </div>
-    <div data-role="content" id="map" ></div>
+  <div class="header" data-role="header" id="head" data-position="fixed" data-add-back-btn="true">
+    <a data-role="button" data-rel="back">Back</a>
+      <h1>NightScanner</h1>
+  </div>
+
+  <div data-role="content" class="map-section">
+    <div  id="map"></div>
+  </div>
+
+  <div class="footer" data-role="footer" data-position="fixed">
+    <p>Created by Daniel Marsh-Hunn</p>
+  </div>
 </div>
 
 </body>
