@@ -23,7 +23,7 @@ git clone https://github.com/danji90/BarRadar
 Access the cloned directory and run index.html in your web browser.
 
 ## Demo
-Please try the [demo](https://danji90.github.io/BarRadar)
+Please try the [demo](https://danji90.github.io/BarRadar/)
 
 ## Author
 Daniel Marsh-Hunn ([al373405@uji.es](mailto:al373405@uji.es))
