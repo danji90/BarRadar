@@ -1,11 +1,29 @@
-# MusicRadar
+# BarRadar
 
-This mobile app is designed to geolocate the user using the Google maps API
-and search for venues playing music (like, bars, music schools, concert halls etc) in a predefined search 
-radius radius. It uses the foursquare API, the category (music) and the radius are specified in the API's URL.
+BarRadar uses Google Geolocation and Google Geolocation API to locate user's locations. It then uses the FourSquare API to find bars in the vicinity. The app includes features to view bar details and its location on a web map.
 
-You can find the app on the free hosting service: 
 
-http://platypus1990.co.nf/ (OUTDATED!)
+## Applied technologies
+This mobile application uses the following technologies:
+- [jQuery](https://jquery.com/)
+- [jQuery Mobile](https://jquerymobile.com/)
+- [Leaflet](https://leafletjs.com/)
+- [Google Geolocation](https://developers.google.com/maps/documentation/javascript/examples/map-geolocation)
+- [Google Geolocation API](https://developers.google.com/maps/documentation/geolocation/intro)
+- [Mapbox](https://www.mapbox.com/)
+- [FourSquare API](https://developer.foursquare.com/)
 
-Have fun using MusicRadar!!!!
+
+## Usage
+Clone repository:
+```
+git clone https://github.com/danji90/BarRadar
+```
+
+Access the cloned directory and run index.html in your web browser.
+
+## Demo
+Please try the [demo](https://danji90.github.io/BarRadar)
+
+## Author
+Daniel Marsh-Hunn ([al373405@uji.es](mailto:al373405@uji.es))
