@@ -1,42 +1,65 @@
+// Globals
+
+var Google_key = "AIzaSyDHWaUDzznLDy5iZd_wJiySK5ylyIoTU5A";
+
+var client_id = "UPDPWFAPNQMDYOGZK3C5RWLAWZBVCH23EDMGCXWNMXEEAKXN";
+
+var client_secret = "0JCC2M4SHSIXTYPLDSCS1A2EO2QYDFZ24RMMAFCHV2WAQRA5";
+
 $(document).ready(function(){
-  // Globals
 
-  Google_key = "AIzaSyDHWaUDzznLDy5iZd_wJiySK5ylyIoTU5A";
+  function compileMap() {
 
-  client_id = "UPDPWFAPNQMDYOGZK3C5RWLAWZBVCH23EDMGCXWNMXEEAKXN";
+    var mbAttr = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+    '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+    'Imagery � <a href="http://mapbox.com">Mapbox</a>'
 
-  client_secret = "0JCC2M4SHSIXTYPLDSCS1A2EO2QYDFZ24RMMAFCHV2WAQRA5";
+    // Define basemap source URL
+    var mbUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibmdhdmlzaCIsImEiOiJjaXFheHJmc2YwMDdoaHNrcWM4Yjhsa2twIn0.8i1Xxwd1XifUU98dGE9nsQ';
 
-  var venues;
+    var basemap = L.tileLayer(mbUrl, {
+      id: 'mapbox.streets',
+      maxZoom: 19,
+      attribution: mbAttr
+    });
 
-  var currentVenue;
+    var map = L.map('map', {
+      layers: [basemap]
+    })
 
-  var map;
+    map.setView([20, 30], 4)
 
-  function drawMap() {
-      var mbAttr = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-      '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-      'Imagery � <a href="http://mapbox.com">Mapbox</a>'
-
-      // Define basemap source URL
-      var mbUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibmdhdmlzaCIsImEiOiJjaXFheHJmc2YwMDdoaHNrcWM4Yjhsa2twIn0.8i1Xxwd1XifUU98dGE9nsQ';
-
-      var basemap = L.tileLayer(mbUrl, {
-        id: 'mapbox.streets',
-        maxZoom: 19,
-        attribution: mbAttr
-      });
-
-      var map = L.map('map', {
-        layers: [basemap]
-      })
-
-      return map
+    return map
   }
 
-  map = drawMap()
-  
-  // Refresh Button
+  var map = compileMap()
+
+  function getCurrentPosition() {
+      navigator.geolocation.getCurrentPosition(function(position) {
+          var pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+          console.log(pos)
+          map.setView([pos.lat, pos.lng], 10)
+
+        }, function(){
+          // If user rejects device geolocation it will use google API
+          var geoLocURL = "https://www.googleapis.com/geolocation/v1/geolocate?key=" + Google_key;
+          $.post(geoLocURL,
+            function(response) {
+              var pos = {
+                lat: response.location.lat,
+                lng: response.location.lng
+              }
+              console.log(pos)
+              map.setView([pos.lat, pos.lng], 10)
+              // createWeatherMap(pos.lat, pos.lng)
+            });
+        })
+    }
+
+  getCurrentPosition()
 
   $(document).on("click", "#refresh", function(e) {
       //Prevent default behaviour
@@ -88,56 +111,5 @@ $(document).ready(function(){
         });
 
 
-    $(document).on('click','#to_details',function (e) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        //Store the venue object
-        currentVenue = venues[e.target.children[0].id];
-        console.log(currentVenue)
 
-        //Change to Details Page
-        $.mobile.changePage("#details")
-    })
-
-  //Update Details Page
-  $(document).on('pagebeforeshow','#details', function (e) {
-      e.preventDefault();
-
-      // When refreshing the page it relocates to #home page to prevent page from getting stuck when currentVenue = undefined
-
-      if (currentVenue == undefined){
-          window.location.href = "index.html";
-      } else {
-          $('#venueName').text(currentVenue.name);
-          $('#venueCity').text('City: '+currentVenue.location.city);
-          $('#venueState').text('State: '+currentVenue.location.state);
-          $('#venueCountry').text('Country: '+currentVenue.location.country);
-          $('#venueDistance').text('Distance from user: '+currentVenue.location.distance);
-          // $('#venuePopularity').text('Popularity: '+currentVenue.stats.checkinsCount +" check-in(s), " + currentVenue.stats.usersCount + " user(s), " + currentVenue.stats.tips + " tip(s)");
-      }
-  })
-
-  // $(document).on('pagebeforeshow','#mapPage', function (e) {
-  //   map = drawMap()
-  // })
-
-  $(document).on('click','#mapView', function (e) {
-      e.preventDefault();
-
-      var LatLng ={
-        lat:currentVenue.location.lat,
-        lon:currentVenue.location.lng
-      }
-
-      var marker = L.marker(L.latLng(LatLng.lat, LatLng.lon))
-            .bindPopup(currentVenue.name);
-      marker.addTo(map);
-
-      map.setView([LatLng.lat, LatLng.lon], 10)
-      // $.mobile.changePage("#mapPage");
-      // document.getElementById('map').innerHTML = "<div id='map'></div>";
-      $.mobile.changePage("#mapPage");
-  });
-
-
-  })
+})
