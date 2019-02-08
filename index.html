@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="stylesheet" href="https://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
   <link rel="stylesheet" href="./leaflet/leaflet.css" />
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.4.0/leaflet.css" /> -->
@@ -19,12 +19,12 @@
 </head>
 
 <body>
-  <div data-role="page" id="home" data-theme="b">
-    <div class="header" data-role="header" id="head" data-position="fixed">
+  <div data-role="page" id="home" data-theme="a">
+    <div class="header" data-role="header" id="head" data-position="fixed" data-theme="c">
       <h1>
         NightScanner
       </h1>
-      <a href="#mapPage" data-icon="location" data-role="button" id="mapView">Map view</a>
+      <a href="#mapPage" data-icon="location" data-role="button" id="mapSwitch">Map view</a>
     </div>
     <div id="instructions" data-role="content">
       <h2>Welcome to NightScanner! Hit Refresh and select your favourite nightlife venue!</h2>
@@ -39,15 +39,15 @@
     <div data-role="content">
       <ul id="venues_list" data-role="listview"></ul>
     </div>
-    <div class="footer" data-role="footer" data-position="fixed">
+    <div class="footer" data-role="footer" data-position="fixed" data-theme="c">
       <p>Created by Daniel Marsh-Hunn</p>
     </div>
   </div>
 
-  <!-- <div data-role="page" id="details" data-theme="b" >
-    <div class="header" data-role="header" id="head" data-position="fixed" data-add-back-btn="true">
+  <div data-role="page" id="details" data-theme="a" >
+    <div class="header" data-role="header" id="head" data-position="fixed" data-add-back-btn="true" data-theme="c">
       <a data-role="button" data-rel="back">Back</a>
-      <a href="mapPage" data-icon="location" data-role="button" id="mapView">Map view</a>
+      <a href="#mapPage" data-icon="location" data-role="button" id="mapView">Map view</a>
       <h1>NightScanner</h1>
     </div>
     </br>
@@ -62,13 +62,13 @@
             <li><span id="venueDistance"></span></li>
         </ul>
     </div>
-    <div class="footer" data-role="footer" data-position="fixed">
+    <div class="footer" data-role="footer" data-position="fixed" data-theme="c">
       <p>Created by Daniel Marsh-Hunn</p>
     </div>
-</div> -->
+</div>
 
-  <div data-role="page" id="mapPage" data-theme="b">
-    <div class="header" data-role="header" id="head" data-position="fixed" data-add-back-btn="true">
+  <div data-role="page" id="mapPage" data-theme="a">
+    <div class="header" data-role="header" id="head" data-position="fixed" data-add-back-btn="true" data-theme="c">
       <a data-role="button" data-rel="back">Back</a>
       <h1>NightScanner</h1>
     </div>
@@ -77,7 +77,7 @@
       <div id="map"></div>
     </div>
 
-    <div class="footer" data-role="footer" data-position="fixed">
+    <div class="footer" data-role="footer" data-position="fixed" data-theme="c">
       <p>Created by Daniel Marsh-Hunn</p>
     </div>
   </div>
